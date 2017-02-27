@@ -3,7 +3,6 @@ package controller;
 import hyggedb.HyggeDb;
 import hyggedb.select.Condition;
 import hyggedb.select.Selection;
-import model.Connector;
 import model.Hasher;
 import model.entity.User;
 import model.repository.Repository;
