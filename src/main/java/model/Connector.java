@@ -14,7 +14,7 @@ public class Connector implements hyggedb.Connector {
 
     private static final String IP = "localhost";
     private static final int PORT = 3306;
-    private static final String DATABASE = "cba_eshop";
+    private static final String DATABASE = "cba_cupcake";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
