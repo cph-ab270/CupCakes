@@ -23,7 +23,7 @@ public class LoginFacade {
 
     public User loginUser(String email, String password) throws WrongPasswordException, NonExistentEmailException {
         Repository<User> userRepository = userRepository = UserRepository.getInstance(db);
-        Condition condition = new Condition("", "user", "email=?", email);
+        Condition condition = new Condition("user", "email=?", email);
         List<User> users = userRepository.findBy(condition);
         if (!users.isEmpty()) {
             User user = users.get(0);
