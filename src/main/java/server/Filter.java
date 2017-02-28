@@ -27,7 +27,7 @@ public class Filter implements javax.servlet.Filter {
             router.inflateRoute(route, path);
             RouteCaller routeCaller = new RouteCaller(route, ((HttpServletRequest) request), ((HttpServletResponse) response));
             Controller controller = routeCaller.callRoute();
-            if (!controller.wasRedirected()) {
+            if (controller.templateWasOutputed()) {
                 request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
             }
         }

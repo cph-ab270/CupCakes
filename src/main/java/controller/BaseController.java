@@ -17,10 +17,6 @@ public abstract class BaseController extends Controller {
 
     public BaseController(HttpServletRequest request, HttpServletResponse response) {
         super(request, response);
-        if (isLoggedIn()) {
-            user = getUser();
-            setAlert("info","You're logged in as "+user.getName()+" "+user.getSurname());
-        }
     }
     private User getUser() {
         HttpSession session = request.getSession();
@@ -30,15 +26,6 @@ public abstract class BaseController extends Controller {
     protected boolean isLoggedIn() {
         HttpSession session = request.getSession();
         return session.getAttribute("user") != null;
-    }
-
-    protected void setAlert(String type, String message) {
-        String alert = "";
-        if (request.getAttribute("alert") != null) {
-            alert = ((String) request.getAttribute("alert"));
-        }
-        alert += "<div class='alert alert-"+type+"' role='alert'>"+message+"</div>";
-        request.setAttribute("alert", alert);
     }
 
     @Override

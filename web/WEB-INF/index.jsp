@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="${assets}style.css">
     <script src="${assets}jquery-3.1.1.min.js"></script>
     <script src="${assets}bootstrap.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="${assets}favicon.ico"/>
+    <link rel="shortcut icon" type="image/png" href="${assets}favicon.ico"/>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -22,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Material library</a>
+            <a class="navbar-brand" href="/">Blank web app</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -47,14 +49,14 @@
         </div>
     </div>
 </nav>
-<% if (request.getAttribute("alert") != null) {%>
-${alert}
+<% if (request.getAttribute("alerts") != null) {%>
+${alerts}
 <% } %>
 <div class="container">
     <jsp:include page="/WEB-INF/pages/${template}.jsp"/>
 </div>
 <footer class="navbar navbar-default container-fluid text-center footer">
-    <p>Material library <b>Copyright Adam Becvar</b> :)</p>
+    <strong>Copyright Adam Becvar</strong>
 </footer>
 </body>
 </html>
