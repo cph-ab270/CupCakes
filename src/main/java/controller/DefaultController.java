@@ -12,7 +12,7 @@ public class DefaultController extends BaseController {
     }
 
     public void index(){
-        setTemplateOutput("home");
+        renderTemplate("home");
     }
 
 

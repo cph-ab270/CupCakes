@@ -40,7 +40,7 @@ public class SignController extends BaseController {
                 setAlert(BootstrapAlerts.Type.ERROR,"This email and password pair doesn't exist.");
             }
         }
-        setTemplateOutput("sign/in");
+        renderTemplate("sign/in");
     }
     private void setLoginSession(User user) {
         HttpSession session = request.getSession();
@@ -62,7 +62,7 @@ public class SignController extends BaseController {
                 setAlert(BootstrapAlerts.Type.ERROR,e.getMessage());
             }
         }
-        setTemplateOutput("sign/up");
+        renderTemplate("sign/up");
     }
 
     public void out() {

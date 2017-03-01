@@ -20,17 +20,18 @@ public class Filter implements javax.servlet.Filter {
         String path = servletRequest.getRequestURI().substring(servletRequest.getContextPath().length());
 
         if (path.startsWith("/assets")) {
-            chain.doFilter(request, response); // Goes to default servlet.
+            chain.doFilter(request, response); // Goes to default servlet for assets
         } else {
-            Router router = new BasicRouter();
-            Route route = new BasicRoute("controller");
-            router.inflateRoute(route, path);
-            RouteCaller routeCaller = new RouteCaller(route, ((HttpServletRequest) request), ((HttpServletResponse) response));
-            Controller controller = routeCaller.callRoute();
-            if (controller.templateWasOutputed()) {
-                request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-            }
+            forwardToController((HttpServletRequest) request, (HttpServletResponse) response, path);
         }
+    }
+
+    private void forwardToController(HttpServletRequest request, HttpServletResponse response, String path) {
+        Router router = new BasicRouter();
+        Route route = new BasicRoute("controller");
+        router.inflateRoute(route, path);
+        RouteCaller routeCaller = new RouteCaller(route, request, response);
+        Controller controller = routeCaller.callRoute();
     }
 
     public void init(FilterConfig config) throws ServletException {

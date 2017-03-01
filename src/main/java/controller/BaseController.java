@@ -29,9 +29,9 @@ public abstract class BaseController extends Controller {
     }
 
     @Override
-    protected void setTemplateOutput(String template) {
-        super.setTemplateOutput(template);
+    protected void renderTemplate(String template) {
         request.setAttribute("root", ROOT);
         request.setAttribute("assets", ASSETS);
+        super.renderTemplate(template);
     }
 }

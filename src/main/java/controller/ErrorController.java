@@ -12,6 +12,6 @@ public class ErrorController extends BaseController {
     }
 
     public void notFound(Object exception) {
-        setTemplateOutput("404");
+        renderTemplate("404");
     }
 }
