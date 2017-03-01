@@ -26,13 +26,13 @@ public class RegisterFacade {
         this.request = request;
     }
 
-    public boolean registerUser() throws EmailTakenException {
+    public User registerUser() throws EmailTakenException {
         Repository<User> userRepository = UserRepository.getInstance(db);
         String email = request.getParameter("email");
         if (emailIsFree(email)) {
             User user = mapUser(email);
             userRepository.persistAndFlush(user);
-            return true;
+            return user;
         } else {
             throw new EmailTakenException();
         }
