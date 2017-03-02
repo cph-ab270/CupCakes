@@ -13,8 +13,8 @@
     <link rel="shortcut icon" type="image/png" href="${assets}favicon.ico"/>
     <link rel="shortcut icon" type="image/png" href="${assets}favicon.ico"/>
 </head>
-<body>
-<nav class="navbar navbar-default">
+<body class = "bg">
+<nav class="navbar navbar-default navBg">
     <div class="container">
         <div class="navbar-header">
             <button materialType="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -24,28 +24,28 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Blank web app</a>
+            <a class="navbar-brand" href="/">CupCake E-SHOP</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="${root}">Homepage</a>
+                    <a href="${root}">HOME</a>
                 </li>
                 <% if (user == null) {%>
                 <li>
                     <a href="${root}sign/in">Sign in</a>
                 </li>
                 <li>
-                    <a href="${root}sign/up">Create new account</a>
+                    <a href="${root}sign/up">Create an account</a>
                 </li>
                 <% } else {%>
                 <li>
-                    <a href="${root}sign/out">Sign out <%= user.getName() %> <%= user.getSurname() %>
+                    <a href="${root}sign/out">Sign out, <%= user.getName() %> <%= user.getSurname() %>
                     </a>
                 </li>
                 <li>
-                    <a href ="${root}store">Order Cupcakes!</a>
+                    <a href ="${root}store">Order Cupcakes</a>
                 </li>
                 <li>
                     <a href="${root}">Balance: <b> <%= user.getBalance() %> DKK</b>
@@ -59,11 +59,11 @@
 <% if (request.getAttribute("alerts") != null) {%>
 ${alerts}
 <% } %>
-<div class="container">
+<div class="container bgContainer">
     <jsp:include page="/WEB-INF/pages/${template}.jsp"/>
 </div>
 <footer class="navbar navbar-default container-fluid text-center footer">
-    <strong>Copyright Adam Becvar</strong>
+    <strong>Copyright Adam Becvar & Lukas Jurgelionis</strong>
 </footer>
 </body>
 </html>

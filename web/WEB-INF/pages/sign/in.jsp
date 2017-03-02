@@ -10,5 +10,6 @@
             <input id="password" class="form-control" type="password" name="password" required>
         </div>
     </div>
-    <button>Sign in</button>
+    <hr>
+    <button class="btn btn-primary">Sign in</button>
 </form>

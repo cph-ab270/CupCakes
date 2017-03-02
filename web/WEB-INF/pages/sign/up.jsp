@@ -9,6 +9,7 @@
             <label for="surname">Surname:</label>
             <input id="surname" class="form-control" type="text" name="surname" required>
         </div>
+        <br>
         <div class="col-sm-12">
             <label for="email">Email:</label>
             <input id="email" class="form-control" type="email" name="email" required>
@@ -18,5 +19,6 @@
             <input id="password" class="form-control" type="password" name="password" required>
         </div>
     </div>
-    <button>Create an account</button>
+    <hr>
+    <button class="btn btn-primary">Create an account</button>
 </form>
