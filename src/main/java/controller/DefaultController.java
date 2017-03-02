@@ -14,6 +14,7 @@ public class DefaultController extends BaseController {
     public void index(){
         renderTemplate("home");
     }
+    public void storeIndex() { renderTemplate("store" ); }
 
 
 }

@@ -45,7 +45,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="${root}">Balance: <b> <%= user.getBalance() %> </b>
+                    <a href ="${root}store">Order Cupcakes!</a>
+                </li>
+                <li>
+                    <a href="${root}">Balance: <b> <%= user.getBalance() %> DKK</b>
                     </a>
                 </li>
                 <% } %>
