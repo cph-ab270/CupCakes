@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.entity.Topping" %>
 <form method = "post">
 <div class="form-group">
     <label for="bottom">Select your bottom:</label>
@@ -13,15 +15,9 @@
 <div class="form-group">
     <label for="topping">Bottoms:</label>
     <select class="form-control" id="topping" required>
-        <option>Chocolate</option>
-        <option>Blueberry</option>
-        <option>Raspberry</option>
-        <option>Crispy</option>
-        <option>Strawberry</option>
-        <option>Rum/Raisin</option>
-        <option>Orande</option>
-        <option>Lemon</option>
-        <option>Blue cheese</option>
+        <% for (Topping topping : ((List<Topping>) request.getAttribute("toppings"))) { %>
+          <option value="<%=topping.getId()%>"><%=topping.getName()%> <%=topping.getPrice()%> DKK</option>
+        <% } %>
     </select>
 </div>
 
