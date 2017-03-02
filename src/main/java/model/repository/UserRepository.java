@@ -95,7 +95,7 @@ public class UserRepository implements Repository<User> {
         Object[] objects;
         String sql;
         for (User user : persistedEntities) {
-            sql = "INSERT INTO `user`(`name`, `surname`, `created_at`, `status`, `type`, `email`, `password`, `salt`) VALUES (?,?,?,?,?,?,?,?,?)";
+            sql = "INSERT INTO `user`(`name`, `surname`, `created_at`, `status`, `type`, `email`, `password`, `salt`, `balance) VALUES (?,?,?,?,?,?,?,?,?)";
             objects = new Object[8];
             objects[0] = user.getName();
             objects[1] = user.getSurname();
