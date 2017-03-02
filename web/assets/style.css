@@ -1,3 +1,27 @@
 .footer {
-    padding: 20px;
+    position: fixed;
+    right: 0;
+    bottom: -20px;
+    left: 0;
+    padding: 1rem;
+    opacity: 0.95;
+    filter: alpha(opacity=95);
+    border-radius: 0;
 }
+
+.navBg {
+    border-radius: 0px;
+    opacity: 0.95;
+    filter: alpha(opacity=95);
+}
+.bgContainer{
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    background-color: #ffffff;
+    padding: 50px 50px 50px 50px;
+    border-radius: 10px;
+}
+.bg {
+    background: url("http://i.imgur.com/9CRH6Po.jpg") no-repeat fixed;
+}
+
