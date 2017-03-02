@@ -53,6 +53,7 @@ public class UserRepository implements Repository<User> {
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setSalt(rs.getString("salt"));
+                user.setBalance(rs.getInt("balance"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,7 +95,7 @@ public class UserRepository implements Repository<User> {
         Object[] objects;
         String sql;
         for (User user : persistedEntities) {
-            sql = "INSERT INTO `user`(`name`, `surname`, `created_at`, `status`, `type`, `email`, `password`, `salt`) VALUES (?,?,?,?,?,?,?,?)";
+            sql = "INSERT INTO `user`(`name`, `surname`, `created_at`, `status`, `type`, `email`, `password`, `salt`) VALUES (?,?,?,?,?,?,?,?,?)";
             objects = new Object[8];
             objects[0] = user.getName();
             objects[1] = user.getSurname();
@@ -104,6 +105,7 @@ public class UserRepository implements Repository<User> {
             objects[5] = user.getEmail();
             objects[6] = user.getPassword();
             objects[7] = user.getSalt();
+            objects[8] = user.getBalance();
             int id = db.getInsertionExecutor().insert(sql, objects);
             user.setId(id);
         }
