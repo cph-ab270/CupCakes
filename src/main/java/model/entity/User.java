@@ -15,6 +15,7 @@ public class User implements Entity {
     private String email;
     private String password;
     private String salt;
+    private int balance;
 
     public int getId() {
         return id;
@@ -87,4 +88,8 @@ public class User implements Entity {
     public void setSalt(String salt) {
         this.salt = salt;
     }
+
+    public int getBalance() { return balance; }
+
+    public void setBalance(int balance) { this.balance = balance; }
 }

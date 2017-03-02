@@ -44,6 +44,13 @@
                     <a href="${root}sign/out">Sign out <%= user.getName() %> <%= user.getSurname() %>
                     </a>
                 </li>
+                <li>
+                    <a href ="${root}store">Order Cupcakes!</a>
+                </li>
+                <li>
+                    <a href="${root}">Balance: <b> <%= user.getBalance() %> DKK</b>
+                    </a>
+                </li>
                 <% } %>
             </ul>
         </div>
