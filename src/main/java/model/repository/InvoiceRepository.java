@@ -121,6 +121,7 @@ public class InvoiceRepository implements Repository<Invoice>{
         for (Order order : invoice.getOrders()) {
             finalPrice += order.getBottom().getPrice();
             finalPrice += order.getTopping().getPrice();
+            finalPrice *= order.getAmount();
         }
         invoice.setPrice(finalPrice);
     }

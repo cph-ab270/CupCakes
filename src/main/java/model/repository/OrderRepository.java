@@ -51,6 +51,7 @@ public class OrderRepository implements Repository<Order>{
                 user.setId(rs.getInt("id"));
                 user.setUserId(rs.getInt("user_id"));
                 user.setStatus(rs.getInt("status"));
+                user.setAmount(rs.getInt("amount"));
                 Bottom bottom = bottomRepository.getById(rs.getInt("bottom_id"));
                 Topping topping = toppingRepository.getById(rs.getInt("topping_id"));
                 user.setBottom(bottom);
@@ -111,12 +112,13 @@ public class OrderRepository implements Repository<Order>{
         Object[] objects;
         String sql;
         for (Order order : persistedEntities) {
-            sql = "INSERT INTO `order`(`topping_id`, `botom_id`, `user_id`, `status`) VALUES (?,?,?,?)";
-            objects = new Object[4];
+            sql = "INSERT INTO `order`(`topping_id`, `botom_id`, `user_id`, `status`, `amount`) VALUES (?,?,?,?,?)";
+            objects = new Object[5];
             objects[0] = order.getTopping().getId();
             objects[1] = order.getBottom().getId();
             objects[2] = order.getUserId();
-            objects[2] = order.getStatus();
+            objects[3] = order.getStatus();
+            objects[4] = order.getAmount();
             int id = db.getInsertionExecutor().insert(sql, objects);
             order.setId(id);
         }

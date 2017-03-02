@@ -9,6 +9,7 @@ public class Order implements Entity{
     private Bottom bottom;
     private int userId;
     private int status;
+    private int amount;
 
     public int getId() {
         return id;
@@ -48,5 +49,13 @@ public class Order implements Entity{
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
