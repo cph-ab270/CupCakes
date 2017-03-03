@@ -51,9 +51,9 @@ public class SignController extends BaseController {
 
     public void up() {
         if (request.getMethod().equals("POST")) {
-            RegisterFacade registerFacade = new RegisterFacade(db,request);
+            RegisterFacade registerFacade = new RegisterFacade(db);
             try {
-                User user = registerFacade.registerUser();
+                User user = registerFacade.registerUser(getParameters());
                 setAlert(BootstrapAlerts.Type.SUCCESS,"Account was created");
                 setLoginSession(user);
                 redirect(ROOT);

@@ -8,35 +8,33 @@ import model.exception.EmailTakenException;
 import model.repository.Repository;
 import model.repository.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Map;
 
 /**
  * Created by adam on 28/02/2017.
  */
 public class RegisterFacade {
     private final HyggeDb db;
-    private final HttpServletRequest request;
 
-    public RegisterFacade(HyggeDb db, HttpServletRequest request) {
+    public RegisterFacade(HyggeDb db) {
         this.db = db;
-        this.request = request;
     }
 
-    public User registerUser() throws EmailTakenException {
+    public User registerUser(Map attributes) throws EmailTakenException {
         Repository<User> userRepository = UserRepository.getInstance(db);
-        String email = request.getParameter("email");
-        if (emailIsFree(email)) {
-            User user = mapUser(email);
+        if (emailIsFree((attributes.get("email").toString()))) {
+            User user = mapUser(attributes);
             userRepository.persistAndFlush(user);
             return user;
         } else {
             throw new EmailTakenException();
         }
     }
+
     private boolean emailIsFree(String email) {
         Selection selection = new Selection("user");
         selection.where("email=?", email);
@@ -48,14 +46,15 @@ public class RegisterFacade {
             return false;
         }
     }
-    private User mapUser(String email) {
+
+    private User mapUser(Map attributes) {
         Hasher hasher = new Hasher();
         String salt = hasher.generateSalt();
-        String hashedPassword = hasher.hashPassword(request.getParameter("password"), salt);
+        String hashedPassword = hasher.hashPassword(((String) attributes.get("password")), salt);
         User user = new User();
-        user.setName(request.getParameter("name"));
-        user.setSurname(request.getParameter("surname"));
-        user.setEmail(email);
+        user.setName(((String) attributes.get("name")));
+        user.setSurname(((String) attributes.get("surname")));
+        user.setEmail(((String) attributes.get("email")));
         user.setType(1);
         user.setStatus(1);
         user.setCreatedAt(new Date(Calendar.getInstance().getTimeInMillis()));

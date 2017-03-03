@@ -8,11 +8,11 @@ public class Topping implements Entity {
     private String name;
     private int price;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

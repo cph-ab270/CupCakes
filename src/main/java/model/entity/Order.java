@@ -11,11 +11,11 @@ public class Order implements Entity{
     private int status;
     private int amount;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
