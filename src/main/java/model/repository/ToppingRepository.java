@@ -89,7 +89,7 @@ public class ToppingRepository implements Repository<Topping> {
         Object[] objects;
         String sql;
         for (Topping topping : persistedEntities) {
-            sql = "INSERT INTO `order`(`name`, `price`) VALUES (?,?)";
+            sql = "INSERT INTO `topping`(`name`, `price`) VALUES (?,?)";
             objects = new Object[2];
             objects[0] = topping.getName();
             objects[1] = topping.getPrice();
