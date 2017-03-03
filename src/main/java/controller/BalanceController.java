@@ -18,7 +18,7 @@ public class BalanceController extends BaseController {
     public void index() {
         if (request.getMethod().equals("POST")) {
             int amount = Integer.parseInt(request.getParameter("amount"));
-            user.setBalance(amount);
+            user.setBalance(user.getBalance() + amount);
             setAlert(BootstrapAlerts.Type.SUCCESS, "Successfully added.");
         }
         renderTemplate("balance/index");
