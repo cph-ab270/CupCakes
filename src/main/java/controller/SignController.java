@@ -45,7 +45,7 @@ public class SignController extends BaseController {
     private void setLoginSession(User user) {
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
-//        session.setMaxInactiveInterval(30*60);
+        session.setMaxInactiveInterval(30*60);
         setAlert(BootstrapAlerts.Type.SUCCESS,"Successfully logged in");
     }
 
