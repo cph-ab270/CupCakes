@@ -4,17 +4,20 @@
     bottom: -20px;
     left: 0;
     padding: 1rem;
-    opacity: 0.95;
-    filter: alpha(opacity=95);
+    opacity: 0.80;
+    filter: alpha(opacity=80);
     border-radius: 0;
+    background-color: #ecf0f1;
 }
 
 .navBg {
     border-radius: 0px;
     opacity: 0.95;
     filter: alpha(opacity=95);
+    background-color: #ecf0f1;
 }
 .bgContainer{
+    margin-top: 8%;
     opacity: 0.8;
     filter: alpha(opacity=80);
     background-color: #ffffff;
@@ -26,9 +29,10 @@
 }
 
 .alert {
-    width: 50%;
+    width: 60%;
     margin-left: 20%;
     margin-right: -20%;
+    position:absolute;
 }
 
 .table {
