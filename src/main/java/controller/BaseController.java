@@ -71,9 +71,16 @@ public abstract class BaseController extends Controller {
         Enumeration names = request.getParameterNames();
         String key;
         String value;
+        Integer intValue;
         while (names.hasMoreElements()) {
             key = ((String) names.nextElement());
-            parameters.put(key, request.getParameter(key));
+            value = request.getParameter(key);
+            try {
+                intValue = Integer.parseInt(value);
+                parameters.put(key, intValue);
+            } catch (NumberFormatException e) {
+                parameters.put(key,value);
+            }
         }
         return parameters;
     }

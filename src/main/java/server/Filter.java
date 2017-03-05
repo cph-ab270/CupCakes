@@ -22,7 +22,11 @@ public class Filter implements javax.servlet.Filter {
         if (path.startsWith("/assets")) {
             chain.doFilter(request, response); // Goes to default servlet for assets
         } else {
-            forwardToController((HttpServletRequest) request, (HttpServletResponse) response, path);
+            try {
+                forwardToController((HttpServletRequest) request, (HttpServletResponse) response, path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

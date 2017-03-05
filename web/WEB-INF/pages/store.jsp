@@ -1,13 +1,13 @@
 <%@ page import="model.entity.Bottom" %>
 <%@ page import="model.entity.Topping" %>
 <%@ page import="java.util.List" %>
-<form method="post">
+<form method="POST" action="${root}store/add">
     <div class="form-group">
         <label for="bottom">Select your Topping:</label>
         <select class="form-control" id="bottom" name="topping" required>
             <% for (Topping topping : ((List<Topping>) request.getAttribute("toppings"))) { %>
             <option data-price="<%=topping.getPrice()%>"
-                    value="<%=topping.getId()%>"><%=topping.getName()%>; <%=topping.getPrice()%> DKK
+                    value="<%=topping.getId()%>"><%=topping.getName()%> - price: <%=topping.getPrice()%> DKK
             </option>
             <% } %>
         </select>
@@ -18,7 +18,7 @@
         <select class="form-control" id="topping" name="bottom" required>
             <% for (Bottom bottom : ((List<Bottom>) request.getAttribute("bottoms"))) { %>
             <option data-price="<%=bottom.getPrice()%>"
-                    value="<%=bottom.getId()%>"><%=bottom.getName()%>; <%=bottom.getPrice()%> DKK
+                    value="<%=bottom.getId()%>"><%=bottom.getName()%> - price: <%=bottom.getPrice()%> DKK
             </option>
             <% } %>
         </select>
@@ -30,13 +30,14 @@
     </div>
 
     <hr>
-    Current Price: <span id="price">0</span> DKK.
-    <button type="button" class="btn btn-success">Continue</button>
+    Current Price: <span id="price"></span> DKK.
+    <button class="btn btn-success">Continue</button>
 </form>
 <script>
     var bottom = getOptionPrice($('#bottom'));
     var topping = getOptionPrice($('#topping'));
     var amount = $('#amount').val();
+    recalculate();
     $('#bottom').on("change",function () {
         bottom = getOptionPrice(this);
         recalculate();

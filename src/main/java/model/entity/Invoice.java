@@ -11,7 +11,7 @@ public class Invoice implements Entity {
     private int userId;
     private Date orderedAt;
     private int price;
-    private List<Order> orders;
+    private List<Cupcake> cupcakes;
 
     @Override
     public Integer getId() {
@@ -47,11 +47,11 @@ public class Invoice implements Entity {
         this.price = price;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<Cupcake> getCupcakes() {
+        return cupcakes;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setCupcakes(List<Cupcake> cupcakes) {
+        this.cupcakes = cupcakes;
     }
 }

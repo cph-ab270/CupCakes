@@ -3,7 +3,7 @@ package model.entity;
 /**
  * Created by adam on 02/03/2017.
  */
-public class Order implements Entity{
+public class Cupcake implements Entity{
     private int id;
     private Topping topping;
     private Bottom bottom;

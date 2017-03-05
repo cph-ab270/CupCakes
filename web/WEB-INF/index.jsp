@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <% } %>
-                <li><a href="#">Cart</a></li>
+                <li><jsp:include page="/WEB-INF/components/cart.jsp"/><a href="#">Cart</a></li>
             </ul>
         </div>
     </div>
