@@ -95,19 +95,31 @@ public class UserRepository implements Repository<User> {
         Object[] objects;
         String sql;
         for (User user : persistedEntities) {
-            sql = "INSERT INTO `user`(`name`, `surname`, `created_at`, `status`, `type`, `email`, `password`, `salt`, `balance`) VALUES (?,?,?,?,?,?,?,?,?)";
-            objects = new Object[8];
-            objects[0] = user.getName();
-            objects[1] = user.getSurname();
-            objects[2] = user.getCreatedAt();
-            objects[3] = user.getStatus();
-            objects[4] = user.getType();
-            objects[5] = user.getEmail();
-            objects[6] = user.getPassword();
-            objects[7] = user.getSalt();
-            objects[8] = user.getBalance();
-            int id = db.getInsertionExecutor().insert(sql, objects);
-            user.setId(id);
+            if (user.getId() != null) {
+                sql = "UPDATE `user` SET `name`=?,`surname`=?,`status`=?,`type`=?,`balance`=? WHERE `id`=?";
+                objects = new Object[6];
+                objects[0] = user.getName();
+                objects[1] = user.getSurname();
+                objects[2] = user.getStatus();
+                objects[3] = user.getType();
+                objects[4] = user.getBalance();
+                objects[5] = user.getId();
+                db.getInsertionExecutor().update(sql,objects);
+            } else {
+                objects = new Object[9];
+                objects[0] = user.getName();
+                objects[1] = user.getSurname();
+                objects[2] = user.getCreatedAt();
+                objects[3] = user.getStatus();
+                objects[4] = user.getType();
+                objects[5] = user.getEmail();
+                objects[6] = user.getPassword();
+                objects[7] = user.getSalt();
+                objects[8] = user.getBalance();
+                sql = "INSERT INTO `user`(`name`, `surname`, `created_at`, `status`, `type`, `email`, `password`, `salt`, `balance`) VALUES (?,?,?,?,?,?,?,?,?)";
+                int id = db.getInsertionExecutor().insert(sql, objects);
+                user.setId(id);
+            }
         }
     }
 }

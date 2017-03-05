@@ -6,7 +6,7 @@ import java.sql.Date;
  * Created by adam on 26/02/2017.
  */
 public class User implements Entity {
-    private int id;
+    private Integer id;
     private String name;
     private String surname;
     private Date createdAt;
@@ -17,11 +17,11 @@ public class User implements Entity {
     private String salt;
     private int balance;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

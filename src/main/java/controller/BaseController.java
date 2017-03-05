@@ -7,6 +7,9 @@ import model.entity.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by adam on 26/02/2017.
@@ -58,5 +61,17 @@ public abstract class BaseController extends Controller {
             return true;
         }
         return false;
+    }
+
+    protected Map<String,Object> getParameters() {
+        Map<String,Object> parameters = new HashMap<>();
+        Enumeration names = request.getParameterNames();
+        String key;
+        String value;
+        while (names.hasMoreElements()) {
+            key = ((String) names.nextElement());
+            parameters.put(key,request.getParameter(key));
+        }
+        return parameters;
     }
 }
