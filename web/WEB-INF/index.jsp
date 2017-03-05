@@ -26,17 +26,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">CupCake E-SHOP</a>
+            <a class="navbar-brand" href="/"><img src ="http://lukasjay.me/cc/logo.png" height="20" width="20"> </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="${root}">HOME</a>
+                    <a href="${root}">Home</a>
                 </li>
+                <% if (user != null) {%>
                 <li>
                     <a href="${root}store">Order Cupcakes</a>
                 </li>
+                <% } %>
                 <% if (user == null) {%>
                 <li>
                     <a href="${root}sign/in">Sign in</a>
@@ -69,8 +71,8 @@
                     </a>
                 </li>
                 <li><a href="${root}invoices"> Invoices</a></li>
-                <% } %>
                 <li><a href="${root}cart">Cart (<jsp:include page="/WEB-INF/components/cart.jsp"/>)</a></li>
+                <% } %>
             </ul>
         </div>
     </div>
@@ -82,7 +84,7 @@ ${alerts}
     <jsp:include page="/WEB-INF/pages/${template}.jsp"/>
 </div>
 <footer class="navbar navbar-default container-fluid text-center footer">
-    <strong>Copyright Adam Becvar & Lukas Jurgelionis</strong>
+    <p>Copyright <b>Adam Becvar & Lukas Jurgelionis</b></p>
 </footer>
 </body>
 </html>
