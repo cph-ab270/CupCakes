@@ -5,6 +5,7 @@ import model.entity.Cupcake;
 import model.entity.Invoice;
 import model.entity.User;
 import model.exception.NotEnoughBalanceException;
+import model.repository.CupcakeRepository;
 import model.repository.InvoiceRepository;
 import model.repository.Repository;
 
@@ -38,7 +39,17 @@ public class OrderFacade {
         invoice.setPrice(finalPrice);
         Repository<Invoice> invoiceRepository = InvoiceRepository.getInstance(db);
         invoiceRepository.persistAndFlush(invoice);
+        updateCupcakeStatuses(cupcakes);
         return invoice;
+    }
+
+    private void updateCupcakeStatuses(List<Cupcake> cupcakes) {
+        Repository<Cupcake> cupcakeRepository = CupcakeRepository.getInstance(db);
+        for (Cupcake cupcake : cupcakes) {
+            cupcake.setStatus(2);
+            cupcakeRepository.persist(cupcake);
+        }
+        cupcakeRepository.flush();
     }
 
     private int calculateFinalPrice(List<Cupcake> cupcakes) {
