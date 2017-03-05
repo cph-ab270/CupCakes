@@ -69,7 +69,8 @@
                     </a>
                 </li>
                 <% } %>
-                <li><jsp:include page="/WEB-INF/components/cart.jsp"/><a href="#">Cart</a></li>
+                <li><a href="cart/index">Cart (<jsp:include page="/WEB-INF/components/cart.jsp"/>)</a></li>
+                <li><a href="invoices/index"> Invoices</a></li>
             </ul>
         </div>
     </div>
