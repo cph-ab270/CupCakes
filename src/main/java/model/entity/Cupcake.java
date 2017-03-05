@@ -4,7 +4,7 @@ package model.entity;
  * Created by adam on 02/03/2017.
  */
 public class Cupcake implements Entity{
-    private int id;
+    private Integer id;
     private Topping topping;
     private Bottom bottom;
     private int userId;

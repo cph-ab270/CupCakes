@@ -1,25 +1,23 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.entity.Invoice" %><% List<Invoice> invoices = ((List<Invoice>) request.getAttribute("invoices")); %>
 <div class="container">
     <h2>Your previous orders:</h2>
     <table class="table table-condensed">
         <thead>
         <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Topping</th>
-            <th>Bottom</th>
-            <th>Amount</th>
-            <th>Price</th>
+            <th>Ordered at</th>
+            <th>price</th>
         </tr>
         </thead>
         <tbody>
+        <%for (Invoice invoice : invoices) {%>
         <tr>
-            <td>Name</td>
-            <td>L. Name</td>
-            <td>Cheese</td>
-            <td>Chicken Nuggets</td>
-            <td>45</td>
-            <td>400</td>
+            <td><%=invoice.getOrderedAt()%>
+            </td>
+            <td><%=invoice.getPrice()%>
+            </td>
         </tr>
+        <% } %>
         </tbody>
     </table>
 </div>
