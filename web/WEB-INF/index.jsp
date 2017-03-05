@@ -26,7 +26,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src ="http://lukasjay.me/cc/logo.png" height="20" width="20"> </a>
+            <a class="navbar-brand" href="${root}"><img src="http://lukasjay.me/cc/logo.png" height="20" width="20"> </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -34,11 +34,9 @@
                 <li>
                     <a href="${root}">Home</a>
                 </li>
-                <% if (user != null) {%>
                 <li>
                     <a href="${root}store">Order Cupcakes</a>
                 </li>
-                <% } %>
                 <% if (user == null) {%>
                 <li>
                     <a href="${root}sign/in">Sign in</a>
@@ -71,8 +69,8 @@
                     </a>
                 </li>
                 <li><a href="${root}invoices"> Invoices</a></li>
-                <li><a href="${root}cart">Cart (<jsp:include page="/WEB-INF/components/cart.jsp"/>)</a></li>
                 <% } %>
+                <li><a href="${root}cart">Cart (<jsp:include page="/WEB-INF/components/cart.jsp"/>)</a></li>
             </ul>
         </div>
     </div>
