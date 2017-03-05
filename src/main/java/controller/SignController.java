@@ -2,7 +2,6 @@ package controller;
 
 import hyggedb.HyggeDb;
 import hyggemvc.component.BootstrapAlerts;
-import model.Connector;
 import model.entity.User;
 import model.exception.EmailTakenException;
 import model.exception.NonExistentEmailException;
@@ -22,7 +21,7 @@ public class SignController extends BaseController {
 
     public SignController(HttpServletRequest request, HttpServletResponse response) {
         super(request, response);
-        db = new HyggeDb(new Connector());
+        db = getDatabase();
     }
 
     public void in() {
@@ -69,6 +68,7 @@ public class SignController extends BaseController {
         if (isLoggedIn()) {
             HttpSession session = request.getSession();
             session.setAttribute("user",null);
+            session.setAttribute("cupcakes",null);
             setAlert(BootstrapAlerts.Type.SUCCESS, "Successfully logged out.");
         } else {
             setAlert(BootstrapAlerts.Type.WARNING, "Don't have to log out when you're not logged in.");
