@@ -52,7 +52,7 @@ public class OrderFacade {
         cupcakeRepository.flush();
     }
 
-    private int calculateFinalPrice(List<Cupcake> cupcakes) {
+    public int calculateFinalPrice(List<Cupcake> cupcakes) {
         int finalPrice = 0;
         for (Cupcake cupcake : cupcakes) {
             finalPrice += cupcake.getBottom().getPrice();

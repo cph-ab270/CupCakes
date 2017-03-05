@@ -28,6 +28,8 @@
                 <td><%=cupcake.getAmount()%>
                 </td>
                 <td><%= ( cupcake.getTopping().getPrice() + cupcake.getBottom().getPrice() ) * cupcake.getAmount() %></td>
+
+            
             </tr>
             <% totalPrice += ( cupcake.getTopping().getPrice() + cupcake.getBottom().getPrice() ) * cupcake.getAmount();
             } %>
@@ -37,7 +39,7 @@
      </hr>
     Total Price: <b> <%= totalPrice  %></b>
         <form method="POST" action="${root}cart/empty-cart">
-            <button class="btn btn-default">BUY</button>
+             <p>Total Price: <b>${finalPrice}</b> <button class="btn btn-default">BUY</button></p>
         </form>
     <% } %>
 </div>
