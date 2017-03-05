@@ -1,7 +1,6 @@
 package controller;
 
 import hyggedb.HyggeDb;
-import model.Connector;
 import model.entity.Topping;
 import model.facade.ToppingFacade;
 import model.repository.Repository;
@@ -21,7 +20,7 @@ public class ToppingController extends BaseController {
     public void add() {
         redirectIfNotAdmin();
         if (request.getMethod().equals("POST")) {
-            HyggeDb db = new HyggeDb(new Connector());
+            HyggeDb db = getDatabase();
             Repository<Topping> toppingRepository = ToppingRepository.getInstance(db);
             ToppingFacade toppingFacade = new ToppingFacade();
             toppingFacade.addTopping(request,toppingRepository);

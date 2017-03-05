@@ -1,7 +1,7 @@
 package controller;
 
 import hyggedb.HyggeDb;
-import hyggedb.select.Condition;
+import hyggemvc.component.BootstrapAlerts;
 import model.Connector;
 import model.entity.Bottom;
 import model.entity.Cupcake;
@@ -37,29 +37,20 @@ public class StoreController extends BaseController {
 
     public void add() {
         if (request.getMethod().equals("POST")) {
-            HyggeDb db = new HyggeDb(new Connector());
+            HyggeDb db = getDatabase();
             CupcakeFacade cupcakeFacade = new CupcakeFacade(db);
             if (isLoggedIn()) {
                 Cupcake cupcake = cupcakeFacade.mapCupcake(getParameters(),user.getId());
                 Repository<Cupcake> orderRepository = CupcakeRepository.getInstance(db);
                 orderRepository.persistAndFlush(cupcake);
-                updateLoggedUserOrdersInSession(orderRepository);
+                putLoggedUserCupcakesInSession(orderRepository);
             } else {
                 Cupcake cupcake = cupcakeFacade.mapCupcake(getParameters(),0);
                 addCupcakeToSession(cupcake);
             }
-        } else {
-            redirect(ROOT + "store");
+            setAlert(BootstrapAlerts.Type.SUCCESS,"Cupcakes were added to your cart.");
         }
-    }
-
-    private void updateLoggedUserOrdersInSession(Repository<Cupcake> orderRepository) {
-        List<Cupcake> cupcakes = orderRepository.findBy(
-                new Condition("","status=?",1)
-                        .and("user_id=?",user.getId())
-        );
-        HttpSession session = request.getSession();
-        session.setAttribute("cupcakes", cupcakes);
+        redirect(ROOT + "store");
     }
 
     private void addCupcakeToSession(Cupcake cupcake) {
