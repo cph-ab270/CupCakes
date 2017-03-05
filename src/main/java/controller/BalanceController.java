@@ -2,8 +2,6 @@ package controller;
 
 
 import hyggemvc.component.BootstrapAlerts;
-import hyggemvc.controller.Controller;
-import model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
