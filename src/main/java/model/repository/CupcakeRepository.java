@@ -4,7 +4,7 @@ import hyggedb.HyggeDb;
 import hyggedb.select.Condition;
 import hyggedb.select.Selection;
 import model.entity.Bottom;
-import model.entity.Order;
+import model.entity.Cupcake;
 import model.entity.Topping;
 
 import java.sql.ResultSet;
@@ -15,21 +15,21 @@ import java.util.List;
 /**
  * Created by adam on 02/03/2017.
  */
-public class OrderRepository implements Repository<Order>{
+public class CupcakeRepository implements Repository<Cupcake>{
     private final HyggeDb db;
     private Repository<Bottom> bottomRepository;
     private Repository<Topping> toppingRepository;
-    private List<Order> persistedEntities = new ArrayList<>();
-    private static OrderRepository instance;
+    private List<Cupcake> persistedEntities = new ArrayList<>();
+    private static CupcakeRepository instance;
 
-    public static OrderRepository getInstance(HyggeDb db) {
+    public static CupcakeRepository getInstance(HyggeDb db) {
         if (instance == null) {
-            return instance = new OrderRepository(db);
+            return instance = new CupcakeRepository(db);
         } else {
             return instance;
         }
     }
-    private OrderRepository(HyggeDb db) {
+    private CupcakeRepository(HyggeDb db) {
         this.db = db;
         instance = this;
         bottomRepository = BottomRepository.getInstance(db);
@@ -37,17 +37,17 @@ public class OrderRepository implements Repository<Order>{
     }
 
     @Override
-    public Order getById(int id) {
-        Selection selection = new Selection("order");
+    public Cupcake getById(int id) {
+        Selection selection = new Selection("cupcake");
         selection.where("id=?",id);
         ResultSet rs = db.getSelectionExecutor().getResult(selection);
-        return mapOrder(rs);
+        return mapCupcake(rs);
     }
-    private Order mapOrder(ResultSet rs) {
-        Order user = null;
+    private Cupcake mapCupcake(ResultSet rs) {
+        Cupcake user = null;
         try {
             if (rs.next()) {
-                user = new Order();
+                user = new Cupcake();
                 user.setId(rs.getInt("id"));
                 user.setUserId(rs.getInt("user_id"));
                 user.setStatus(rs.getInt("status"));
@@ -64,45 +64,45 @@ public class OrderRepository implements Repository<Order>{
     }
 
     @Override
-    public List<Order> findAll() {
-        Selection selection = new Selection("order");
+    public List<Cupcake> findAll() {
+        Selection selection = new Selection("cupcake");
         ResultSet rs = db.getSelectionExecutor().getResult(selection);
-        return mapOrders(rs);
+        return mapCupcakes(rs);
     }
-    public List<Order> findByInvoiceId(int invoiceId) {
-        Selection selection = new Selection("order","*");
+    public List<Cupcake> findByInvoiceId(int invoiceId) {
+        Selection selection = new Selection("cupcake","*");
         selection
-                .join("invoice_order","id","order_id")
+                .join("invoice_cupcake","id","cupcake_id")
                 .join("invoice")
                     .where("id=?",invoiceId);
         ResultSet rs = db.getSelectionExecutor().getResult(selection);
-        return mapOrders(rs);
+        return mapCupcakes(rs);
     }
-    private List<Order> mapOrders(ResultSet rs) {
-        List<Order> orders = new ArrayList<>();
-        Order order = mapOrder(rs);
-        while (order != null) {
-            orders.add(order);
-            order = mapOrder(rs);
+    private List<Cupcake> mapCupcakes(ResultSet rs) {
+        List<Cupcake> cupcakes = new ArrayList<>();
+        Cupcake cupcake = mapCupcake(rs);
+        while (cupcake != null) {
+            cupcakes.add(cupcake);
+            cupcake = mapCupcake(rs);
         }
-        return orders;
+        return cupcakes;
     }
 
     @Override
-    public List<Order> findBy(Condition condition) {
-        Selection selection = new Selection("order");
+    public List<Cupcake> findBy(Condition condition) {
+        Selection selection = new Selection("cupcake");
         selection.setWhere(condition);
         ResultSet rs = db.getSelectionExecutor().getResult(selection);
-        return mapOrders(rs);
+        return mapCupcakes(rs);
     }
 
     @Override
-    public void persist(Order entity) {
+    public void persist(Cupcake entity) {
         persistedEntities.add(entity);
     }
 
     @Override
-    public void persistAndFlush(Order entity) {
+    public void persistAndFlush(Cupcake entity) {
         persist(entity);
         flush();
     }
@@ -111,16 +111,16 @@ public class OrderRepository implements Repository<Order>{
     public void flush() {
         Object[] objects;
         String sql;
-        for (Order order : persistedEntities) {
-            sql = "INSERT INTO `order`(`topping_id`, `botom_id`, `user_id`, `status`, `amount`) VALUES (?,?,?,?,?)";
+        for (Cupcake cupcake : persistedEntities) {
+            sql = "INSERT INTO `cupcake`(`topping_id`, `bottom_id`, `user_id`, `status`, `amount`) VALUES (?,?,?,?,?)";
             objects = new Object[5];
-            objects[0] = order.getTopping().getId();
-            objects[1] = order.getBottom().getId();
-            objects[2] = order.getUserId();
-            objects[3] = order.getStatus();
-            objects[4] = order.getAmount();
+            objects[0] = cupcake.getTopping().getId();
+            objects[1] = cupcake.getBottom().getId();
+            objects[2] = cupcake.getUserId();
+            objects[3] = cupcake.getStatus();
+            objects[4] = cupcake.getAmount();
             int id = db.getInsertionExecutor().insert(sql, objects);
-            order.setId(id);
+            cupcake.setId(id);
         }
     }
 }

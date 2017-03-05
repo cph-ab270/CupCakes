@@ -4,7 +4,7 @@ import hyggedb.HyggeDb;
 import hyggedb.select.Condition;
 import hyggedb.select.Selection;
 import model.entity.Invoice;
-import model.entity.Order;
+import model.entity.Cupcake;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class InvoiceRepository implements Repository<Invoice>{
     private final HyggeDb db;
-    private OrderRepository orderRepository;
+    private CupcakeRepository cupcakeRepository;
     private List<Invoice> persistedEntities = new ArrayList<>();
     private static Repository<Invoice> instance;
 
@@ -30,7 +30,7 @@ public class InvoiceRepository implements Repository<Invoice>{
     private InvoiceRepository(HyggeDb db) {
         this.db = db;
         instance = this;
-        orderRepository = OrderRepository.getInstance(db);
+        cupcakeRepository = CupcakeRepository.getInstance(db);
     }
 
     @Override
@@ -47,8 +47,8 @@ public class InvoiceRepository implements Repository<Invoice>{
                 invoice = new Invoice();
                 invoice.setId(rs.getInt("id"));
                 invoice.setUserId(rs.getInt("user_id"));
-                List<Order> orders = orderRepository.findByInvoiceId(rs.getInt("invoice_id"));
-                invoice.setOrders(orders);
+                List<Cupcake> cupcakes = cupcakeRepository.findByInvoiceId(rs.getInt("invoice_id"));
+                invoice.setCupcakes(cupcakes);
                 invoice.setOrderedAt(rs.getDate("ordered_at"));
             }
         } catch (SQLException e) {
@@ -107,10 +107,10 @@ public class InvoiceRepository implements Repository<Invoice>{
             invoice.setId(id);
 
             sql = "INSERT INTO `invoice_order`(`invoice_id`, `order_id`) VALUES (?,?)";
-            for (Order order : invoice.getOrders()) {
+            for (Cupcake cupcake : invoice.getCupcakes()) {
                 objects = new Object[2];
                 objects[0] = invoice.getId();
-                objects[1] = order.getId();
+                objects[1] = cupcake.getId();
                 db.getInsertionExecutor().insert(sql, objects);
             }
         }
@@ -118,10 +118,10 @@ public class InvoiceRepository implements Repository<Invoice>{
 
     private void calculateFinalPrice(Invoice invoice) {
         int finalPrice = 0;
-        for (Order order : invoice.getOrders()) {
-            finalPrice += order.getBottom().getPrice();
-            finalPrice += order.getTopping().getPrice();
-            finalPrice *= order.getAmount();
+        for (Cupcake cupcake : invoice.getCupcakes()) {
+            finalPrice += cupcake.getBottom().getPrice();
+            finalPrice += cupcake.getTopping().getPrice();
+            finalPrice *= cupcake.getAmount();
         }
         invoice.setPrice(finalPrice);
     }

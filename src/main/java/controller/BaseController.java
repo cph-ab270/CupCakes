@@ -39,38 +39,48 @@ public abstract class BaseController extends Controller {
     protected void renderTemplate(String template) {
         request.setAttribute("root", ROOT);
         request.setAttribute("assets", ASSETS);
+        if (isLoggedIn()) {
+            request.setAttribute("admin", isAdmin());
+        } else {
+            request.setAttribute("admin", false);
+        }
         super.renderTemplate(template);
     }
 
-    protected boolean checkSignIn() {
+    protected void redirectIfNotSignedIn() {
         if (!isLoggedIn()) {
             setAlert(BootstrapAlerts.Type.ERROR, "First sign in mate.");
             redirect(ROOT + "sign/in");
-            return false;
         }
-        return true;
     }
 
-    protected boolean checkAdmin() {
-        if (checkSignIn()) {
-            if (user.getType() != ADMIN_TYPE) {
-                setAlert(BootstrapAlerts.Type.ERROR, "You're not an admin mate.");
-                redirect(ROOT);
-                return false;
-            }
-            return true;
+    protected void redirectIfNotAdmin() {
+        redirectIfNotSignedIn();
+        if (!isAdmin()) {
+            setAlert(BootstrapAlerts.Type.ERROR, "You're not an admin mate.");
+            redirect(ROOT);
         }
-        return false;
     }
 
-    protected Map<String,Object> getParameters() {
-        Map<String,Object> parameters = new HashMap<>();
+    private boolean isAdmin() {
+        return user.getType() == ADMIN_TYPE;
+    }
+
+    protected Map<String, Object> getParameters() {
+        Map<String, Object> parameters = new HashMap<>();
         Enumeration names = request.getParameterNames();
         String key;
         String value;
+        Integer intValue;
         while (names.hasMoreElements()) {
             key = ((String) names.nextElement());
-            parameters.put(key,request.getParameter(key));
+            value = request.getParameter(key);
+            try {
+                intValue = Integer.parseInt(value);
+                parameters.put(key, intValue);
+            } catch (NumberFormatException e) {
+                parameters.put(key,value);
+            }
         }
         return parameters;
     }
