@@ -25,7 +25,7 @@ public abstract class BaseController extends Controller {
     private HyggeDb db = null;
     public static final int ADMIN_TYPE = 2;
     protected final String ROOT = "/";
-    protected final String ASSETS = "/assets/";
+    protected final String ASSETS = ROOT+"assets/";
     protected User user = null;
 
     public BaseController(HttpServletRequest request, HttpServletResponse response) {
