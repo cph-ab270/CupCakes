@@ -19,7 +19,7 @@ public class ToppingController extends BaseController {
     }
 
     public void add() {
-        checkAdmin();
+        redirectIfNotAdmin();
         if (request.getMethod().equals("POST")) {
             HyggeDb db = new HyggeDb(new Connector());
             Repository<Topping> toppingRepository = ToppingRepository.getInstance(db);

@@ -1,4 +1,6 @@
-<%@ page import="model.entity.User" %><% User user = ((User) session.getAttribute("user")); %>
+<%@ page import="model.entity.User" %>
+<% User user = ((User) session.getAttribute("user")); %>
+<% boolean isAdmin = ((Boolean) request.getAttribute("admin")).booleanValue(); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +15,7 @@
     <link rel="shortcut icon" type="image/png" href="${assets}favicon.ico"/>
     <link rel="shortcut icon" type="image/png" href="${assets}favicon.ico"/>
 </head>
-<body class = "bg">
+<body class="bg">
 <nav class="navbar navbar-default navBg">
     <div class="container">
         <div class="navbar-header">
@@ -32,6 +34,9 @@
                 <li>
                     <a href="${root}">HOME</a>
                 </li>
+                <li>
+                    <a href="${root}store">Order Cupcakes</a>
+                </li>
                 <% if (user == null) {%>
                 <li>
                     <a href="${root}sign/in">Sign in</a>
@@ -44,14 +49,27 @@
                     <a href="${root}sign/out">Sign out, <%= user.getName() %> <%= user.getSurname() %>
                     </a>
                 </li>
+                <% if (isAdmin) {%>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Admin options <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="${root}topping/add">Add topping</a>
+                            </li>
+                        </ul>
+                    </li>
+                <% } %>
+                <% } %>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if (user != null) {%>
                 <li>
-                    <a href ="${root}store">Order Cupcakes</a>
-                </li>
-                <li>
-                    <a href="${root}">Balance: <b> <%= user.getBalance() %> DKK</b>
+                    <a href="${root}">Balance: <b><%= user.getBalance() %> DKK</b>
                     </a>
                 </li>
                 <% } %>
+                <li><a href="#">Cart</a></li>
             </ul>
         </div>
     </div>

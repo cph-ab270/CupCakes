@@ -22,6 +22,7 @@ public class DefaultController extends BaseController {
         renderTemplate("home");
     }
     public void store() {
+
         HyggeDb db = new HyggeDb(new Connector());
         Repository<Topping> toppingRepository = ToppingRepository.getInstance(db);
         List<Topping> toppings = toppingRepository.findAll();
