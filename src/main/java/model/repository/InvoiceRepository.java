@@ -47,9 +47,10 @@ public class InvoiceRepository implements Repository<Invoice>{
                 invoice = new Invoice();
                 invoice.setId(rs.getInt("id"));
                 invoice.setUserId(rs.getInt("user_id"));
-                List<Cupcake> cupcakes = cupcakeRepository.findByInvoiceId(rs.getInt("invoice_id"));
+                List<Cupcake> cupcakes = cupcakeRepository.findByInvoiceId(invoice.getId());
                 invoice.setCupcakes(cupcakes);
                 invoice.setOrderedAt(rs.getDate("ordered_at"));
+                invoice.setPrice(rs.getInt("price"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +60,7 @@ public class InvoiceRepository implements Repository<Invoice>{
 
     @Override
     public List<Invoice> findAll() {
-        Selection selection = new Selection("order");
+        Selection selection = new Selection("invoice");
         ResultSet rs = db.getSelectionExecutor().getResult(selection);
         return mapInvoices(rs);
     }
@@ -75,7 +76,7 @@ public class InvoiceRepository implements Repository<Invoice>{
 
     @Override
     public List<Invoice> findBy(Condition condition) {
-        Selection selection = new Selection("order");
+        Selection selection = new Selection("invoice");
         selection.setWhere(condition);
         ResultSet rs = db.getSelectionExecutor().getResult(selection);
         return mapInvoices(rs);
@@ -101,12 +102,11 @@ public class InvoiceRepository implements Repository<Invoice>{
             objects = new Object[3];
             objects[0] = invoice.getOrderedAt();
             objects[1] = invoice.getUserId();
-            calculateFinalPrice(invoice);
             objects[2] = invoice.getPrice();
             int id = db.getInsertionExecutor().insert(sql, objects);
             invoice.setId(id);
 
-            sql = "INSERT INTO `invoice_order`(`invoice_id`, `order_id`) VALUES (?,?)";
+            sql = "INSERT INTO `invoice_cupcake`(`invoice_id`, `cupcake_id`) VALUES (?,?)";
             for (Cupcake cupcake : invoice.getCupcakes()) {
                 objects = new Object[2];
                 objects[0] = invoice.getId();
@@ -114,15 +114,5 @@ public class InvoiceRepository implements Repository<Invoice>{
                 db.getInsertionExecutor().insert(sql, objects);
             }
         }
-    }
-
-    private void calculateFinalPrice(Invoice invoice) {
-        int finalPrice = 0;
-        for (Cupcake cupcake : invoice.getCupcakes()) {
-            finalPrice += cupcake.getBottom().getPrice();
-            finalPrice += cupcake.getTopping().getPrice();
-            finalPrice *= cupcake.getAmount();
-        }
-        invoice.setPrice(finalPrice);
     }
 }

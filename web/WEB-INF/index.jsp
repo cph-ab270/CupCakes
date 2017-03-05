@@ -68,9 +68,9 @@
                     <a href="${root}balance">Balance: <b> <%= user.getBalance() %> DKK</b>
                     </a>
                 </li>
+                <li><a href="${root}invoices"> Invoices</a></li>
                 <% } %>
-                <li><a href="cart/index">Cart (<jsp:include page="/WEB-INF/components/cart.jsp"/>)</a></li>
-                <li><a href="invoices/index"> Invoices</a></li>
+                <li><a href="${root}cart">Cart (<jsp:include page="/WEB-INF/components/cart.jsp"/>)</a></li>
             </ul>
         </div>
     </div>

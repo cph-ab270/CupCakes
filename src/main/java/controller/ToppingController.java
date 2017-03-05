@@ -23,7 +23,7 @@ public class ToppingController extends BaseController {
             HyggeDb db = getDatabase();
             Repository<Topping> toppingRepository = ToppingRepository.getInstance(db);
             ToppingFacade toppingFacade = new ToppingFacade();
-            toppingFacade.addTopping(request,toppingRepository);
+            toppingFacade.addTopping(getParameters(),toppingRepository);
         }
         renderTemplate("topping/add");
     }

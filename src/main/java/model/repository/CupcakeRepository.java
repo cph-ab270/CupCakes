@@ -112,15 +112,22 @@ public class CupcakeRepository implements Repository<Cupcake>{
         Object[] objects;
         String sql;
         for (Cupcake cupcake : persistedEntities) {
-            sql = "INSERT INTO `cupcake`(`topping_id`, `bottom_id`, `user_id`, `status`, `amount`) VALUES (?,?,?,?,?)";
-            objects = new Object[5];
-            objects[0] = cupcake.getTopping().getId();
-            objects[1] = cupcake.getBottom().getId();
-            objects[2] = cupcake.getUserId();
-            objects[3] = cupcake.getStatus();
-            objects[4] = cupcake.getAmount();
-            int id = db.getInsertionExecutor().insert(sql, objects);
-            cupcake.setId(id);
+            if (cupcake.getId() == null) {
+                sql = "INSERT INTO `cupcake`(`topping_id`, `bottom_id`, `user_id`, `status`, `amount`) VALUES (?,?,?,?,?)";
+                objects = new Object[5];
+                objects[0] = cupcake.getTopping().getId();
+                objects[1] = cupcake.getBottom().getId();
+                objects[2] = cupcake.getUserId();
+                objects[3] = cupcake.getStatus();
+                objects[4] = cupcake.getAmount();
+                int id = db.getInsertionExecutor().insert(sql, objects);
+                cupcake.setId(id);
+            } else {
+                sql = "UPDATE `cupcake` SET `status`=?";
+                objects = new Object[1];
+                objects[0] = cupcake.getStatus();
+                db.getInsertionExecutor().update(sql,objects);
+            }
         }
     }
 }
