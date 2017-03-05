@@ -1,7 +1,8 @@
 <%@ page import="model.entity.Cupcake" %>
 <%@ page import="java.util.List" %>
-<% List<Cupcake> cupcakes = (List<Cupcake>) session.getAttribute("cupcakes"); %>
 
+<% int totalPrice = 0; %>
+<% List<Cupcake> cupcakes = (List<Cupcake>) session.getAttribute("cupcakes"); %>
 <div class="container">
     <h2>Your Cart:</h2>
     <% if (cupcakes == null) { %>
@@ -25,6 +26,8 @@
                 </td>
                 <td><%=cupcake.getAmount()%>
                 </td>
+              <td><%=(cupcake.getTopping().getPrice() + cupcake.getTopping().getPrice()) * cupcake.getAmount()%></td>
+              <% totalPrice += (cupcake.getTopping().getPrice() + cupcake.getTopping().getPrice()) * cupcake.getAmount(); } %>
             </tr>
             <% } %>
 
@@ -33,7 +36,7 @@
 
         <hr>
         <form method="POST" action="${root}cart/empty-cart">
-            <button class="btn btn-default">BUY</button>
+             <p>Total Price: <b><%= totalPrice%></b> <button class="btn btn-default">BUY</button></p>
         </form>
     <% } %>
 </div>
