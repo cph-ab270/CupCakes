@@ -101,7 +101,6 @@ public class InvoiceRepository implements Repository<Invoice>{
             objects = new Object[3];
             objects[0] = invoice.getOrderedAt();
             objects[1] = invoice.getUserId();
-            calculateFinalPrice(invoice);
             objects[2] = invoice.getPrice();
             int id = db.getInsertionExecutor().insert(sql, objects);
             invoice.setId(id);
@@ -114,15 +113,5 @@ public class InvoiceRepository implements Repository<Invoice>{
                 db.getInsertionExecutor().insert(sql, objects);
             }
         }
-    }
-
-    private void calculateFinalPrice(Invoice invoice) {
-        int finalPrice = 0;
-        for (Cupcake cupcake : invoice.getCupcakes()) {
-            finalPrice += cupcake.getBottom().getPrice();
-            finalPrice += cupcake.getTopping().getPrice();
-            finalPrice *= cupcake.getAmount();
-        }
-        invoice.setPrice(finalPrice);
     }
 }

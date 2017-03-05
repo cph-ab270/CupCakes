@@ -67,8 +67,8 @@ public class SignController extends BaseController {
     public void out() {
         if (isLoggedIn()) {
             HttpSession session = request.getSession();
-            session.setAttribute("user",null);
-            session.setAttribute("cupcakes",null);
+            session.removeAttribute("user");
+            session.removeAttribute("cupcakes");
             setAlert(BootstrapAlerts.Type.SUCCESS, "Successfully logged out.");
         } else {
             setAlert(BootstrapAlerts.Type.WARNING, "Don't have to log out when you're not logged in.");
