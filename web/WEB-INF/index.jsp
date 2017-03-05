@@ -65,7 +65,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <% if (user != null) {%>
                 <li>
-                    <a href="${root}">Balance: <b><%= user.getBalance() %> DKK</b>
+                    <a href="${root}balance">Balance: <b> <%= user.getBalance() %> DKK</b>
                     </a>
                 </li>
                 <% } %>

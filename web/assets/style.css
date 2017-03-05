@@ -25,3 +25,8 @@
     background: url("http://i.imgur.com/9CRH6Po.jpg") no-repeat fixed;
 }
 
+.alert {
+    width: 50%;
+    margin-left: 20%;
+    margin-right: -20%;
+}
