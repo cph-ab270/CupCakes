@@ -39,7 +39,7 @@
      </hr>
     Total Price: <b> <%= totalPrice  %></b>
         <form method="POST" action="${root}cart/empty-cart">
-             <p>Total Price: <b>${finalPrice}</b> <button class="btn btn-default">BUY</button></p>
+             <button class="btn btn-default">BUY</button></p>
         </form>
     <% } %>
 </div>
